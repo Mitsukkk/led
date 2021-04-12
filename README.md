@@ -27,5 +27,3 @@ COLOR Object
 	"blue" : int(0-255)
 }
 ```
-# led
-# led

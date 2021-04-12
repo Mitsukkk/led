@@ -35,5 +35,5 @@ services:
       - ./:/var/www/html
     working_dir: /var/www/html
     command: php-fpm
-    #env_file:
-    #  - .env
+    env_file:
+    - .env

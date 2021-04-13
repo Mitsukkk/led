@@ -10,5 +10,5 @@ use BaoPham\DynamoDb\DynamoDbModel;
 class Led extends DynamoDbModel
 {
     protected $table = 'led';
-    protected $fillable = ['id'];
+    protected $fillable = ['id', 'name', 'lastUpdate'];
 }

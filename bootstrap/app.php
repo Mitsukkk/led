@@ -103,11 +103,12 @@ $app->configure('app');
 // $app->register(App\Providers\EventServiceProvider::class);
 
 $app->register(BaoPham\DynamoDb\DynamoDbServiceProvider::class);
-$app->register(\SwaggerLume\ServiceProvider::class);
+//$app->register(\SwaggerLume\ServiceProvider::class);
 
-if (env('APP_DEBUG')) {
-    $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
-}
+
+//if (env('APP_DEBUG')) {
+//    $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
+//}
 
 /*
 |--------------------------------------------------------------------------

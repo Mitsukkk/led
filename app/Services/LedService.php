@@ -3,10 +3,18 @@
 namespace App\Services;
 
 use App\Models\Led;
+use App\Repositories\LedRepository;
 use Ramsey\Uuid\Uuid;
 
 class LedService
 {
+    protected $ledRepository;
+
+    public function __construct(LedRepository $ledRepository)
+    {
+        $this->ledRepository = $ledRepository;
+    }
+
     public function ledAll()
     {
         return Led::all();
@@ -16,7 +24,7 @@ class LedService
      * @param string $name
      * @return Led
      */
-    public function ledCreate(string $name): Led
+    public function create(string $name): Led
     {
         $led = new Led();
         $led->id = Uuid::uuid4()->toString();
@@ -25,5 +33,14 @@ class LedService
         $led->save();
 
         return $led;
+    }
+
+    /**
+     * @param string $ledId
+     * @return mixed
+     */
+    public function find(string $ledId)
+    {
+        return $this->ledRepository->findByUuid($ledId);
     }
 }

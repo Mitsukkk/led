@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use Log;
 
 class Handler extends ExceptionHandler
 {
@@ -28,7 +29,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Throwable  $exception
+     * @param \Throwable $exception
      * @return void
      *
      * @throws \Exception
@@ -39,16 +40,22 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Throwable
+     * @param \Illuminate\Http\Request $request
+     * @param Throwable $exception
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        $render = parent::render($request, $exception);
+
+        Log::error($exception->getMessage());
+
+        return response()->json([
+            'error' => [
+                'code' => $render->getStatusCode(),
+                'message' => $exception->getMessage(),
+            ]
+        ], $render->getStatusCode());
     }
 }

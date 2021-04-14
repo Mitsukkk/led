@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\LedService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller;
-use Log;
+use Exception;
 
 class LedController extends Controller
 {
@@ -26,30 +24,32 @@ class LedController extends Controller
     }
 
     /**
-     * @return JsonResponse
+     * @return mixed
      */
-    public function getAll(): JsonResponse
+    public function getAll()
     {
-        try {
-            return response()->json($this->ledService->ledAll());
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['No entry exists'], 500);
-        }
+        return $this->ledService->ledAll();
     }
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return \App\Models\Led
      */
-    public function create(Request $request): JsonResponse
+    public function create(Request $request): \App\Models\Led
     {
-        try {
-            $name = $request->input('name');
-            return response()->json($this->ledService->ledCreate($name));
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['The led could not be created'], 500);
-        }
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        return $this->ledService->create($request->input('name'));
+    }
+
+    /**
+     * @param string $ledId
+     * @return JsonResponse|mixed
+     */
+    public function get(string $ledId)
+    {
+        return $this->ledService->find($ledId);
     }
 }

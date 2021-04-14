@@ -3,16 +3,10 @@
 namespace App\Services;
 
 use App\Models\Led;
-use BaoPham\DynamoDb\DynamoDbCollection;
-use BaoPham\DynamoDb\DynamoDbModel;
-use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
 
 class LedService
 {
-    /**
-     * @return DynamoDbCollection|DynamoDbModel[]|Collection
-     */
     public function ledAll()
     {
         return Led::all();

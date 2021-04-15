@@ -33,9 +33,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['auth']->viaRequest('api', function ($request) {
             $apiToken = $request->bearerToken();
 
-//            if ($apiToken === null) {
-//                $apiToken = $apiToken = $request->input('api_token');
-//            }
+            if ($apiToken === null) {
+                $apiToken = $apiToken = $request->input('api_token');
+            }
 
             if ($apiToken && $apiToken == env('API_TOKEN')) {
                 return new GenericUser(['id' => 1, 'name' => 'User']);

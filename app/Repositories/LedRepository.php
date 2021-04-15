@@ -45,4 +45,13 @@ class LedRepository
 
         return $led;
     }
+
+    /**
+     * @param string $ledId
+     * @return bool
+     */
+    public function deleteById(string $ledId): bool
+    {
+        return Led::find($ledId)->delete();
+    }
 }

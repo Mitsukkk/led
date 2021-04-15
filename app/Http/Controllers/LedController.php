@@ -66,4 +66,11 @@ class LedController extends Controller
 
         return new JsonResponse($this->ledService->update($request->input('name'), $ledId));
     }
+
+    public function delete(string $ledId): JsonResponse
+    {
+        $this->ledService->delete($ledId);
+
+        return new JsonResponse(['The led was deleted']);
+    }
 }

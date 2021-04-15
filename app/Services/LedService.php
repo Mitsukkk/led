@@ -42,4 +42,13 @@ class LedService
     {
         return $this->ledRepository->updateByUuid($name, $ledId);
     }
+
+    /**
+     * @param string $ledId
+     * @return bool
+     */
+    public function delete(string $ledId): bool
+    {
+        return $this->ledRepository->deleteById($ledId);
+    }
 }

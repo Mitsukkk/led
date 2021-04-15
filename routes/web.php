@@ -28,16 +28,4 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('led/{ledId}/color', ['middleware' => 'auth', 'uses' => 'ColorController@update']);
 });
 
-//$router->get('/led', 'LedController@getAll');
-//
-//$router->post('/led', 'LedController@create');
-//
-//$router->get('/led/{ledId}', 'LedController@get');
-//
-//$router->put('/led/{ledId}', 'LedController@update');
-
-//$router->delete('/led/{ledId}', 'LedController@delete');
-
-//$router->get('/led/{ledId}/color', 'ColorController@get');
-
-//$router->put('/led/{ledId}/color', 'ColorController@update');
+$router->delete('/led/{ledId}', 'LedController@delete');

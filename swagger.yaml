@@ -1,0 +1,207 @@
+swagger: "2.0"
+info:
+  description: "CRUD on led management"
+  version: "1.0.0"
+  title: "Led project"
+host: "localhost"
+schemes:
+- "http"
+produces:
+  - application/json
+tags:
+- name: "led"
+paths:
+  /api/led:
+    get:
+      tags:
+        - "led"
+      summary: "List all LED"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "A Led object"
+          schema:
+            $ref: "#/definitions/Led"
+        default:
+          description: Unexpected error
+    post:
+      tags:
+        - "led"
+      summary: "Add a new LED"
+      operationId: "update"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the led"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Led object"
+          schema:
+            $ref: "#/definitions/Led"
+        default:
+          description: Unexpected error
+  /api/led/{ledId}:
+    get:
+      tags:
+        - "led"
+      summary: "Display information of a specific LED (except Color)"
+      operationId: "getLedById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ledId"
+        in: "path"
+        description: "ID of led to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+              $ref: "#/definitions/Led"
+        default:
+          description: Unexpected error
+    put:
+      tags:
+        - "led"
+      summary: "Update information of a LED (except Color)"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ledId"
+        in: "path"
+        description: "ID of led to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the led"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "A Led object"
+          schema:
+            $ref: "#/definitions/Led"
+        default:
+          description: Unexpected error
+    delete:
+      tags:
+        - "led"
+      summary: "Delete a specific LED"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ledId"
+        in: "path"
+        description: "ID of led to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "The led was deleted"
+          schema:
+            properties:
+              message:
+                type: string
+                description: "red color"
+                example: "The led was deleted"
+        default:
+          description: Unexpected error
+  /api/{ledId}/color:
+    get:
+      tags:
+        - "led"
+      summary: "Get color of a led"
+      produces:
+        - application/json
+      parameters:
+      - name: "ledId"
+        in: "path"
+        description: "ID of led to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Led color"
+          schema:
+           properties:
+            name:
+              type: string
+              description: led name
+              example: "led"
+            id:
+              type: string
+              description: led uuid
+              example: "2a30b6a8-c122-4b7c-8518-dd0297370e9c"
+            lastUpdate:
+              type: integer
+              description: led last update.
+              example: 1618468831
+            color:
+              type: string
+              description: "red color"
+              example: {
+                "red": 200,
+                "green": 100,
+                "blue": 50
+              }
+        default:
+          description: Unexpected error
+    put:
+      tags:
+        - "led"
+      summary: "Update color of a led"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ledId"
+        in: "path"
+        description: "ID of led to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: string
+            description: "red color"
+            example: {
+              "red": 200,
+              "green": 100,
+              "blue": 50
+            }
+        default:
+          description: Unexpected error
+definitions:
+  Led:
+    type: object
+    properties:
+      name:
+        type: string
+        description: led name
+        example: "led"
+      id:
+        type: string
+        description: led uuid
+        example: "2a30b6a8-c122-4b7c-8518-dd0297370e9c"
+      lastUpdate:
+        type: integer
+        description: led last update.
+        example: 1618468831

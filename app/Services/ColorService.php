@@ -17,6 +17,19 @@ class ColorService
 
     /**
      * @param string $ledId
+     * @return mixed
+     */
+    public function findOne(string $ledId)
+    {
+        $led = Led::findOrFail($ledId);
+
+        if ($led) {
+            return json_decode($led->color);
+        }
+    }
+
+    /**
+     * @param string $ledId
      * @param Request $request
      * @return Led
      */

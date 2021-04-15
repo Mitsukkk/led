@@ -16,6 +16,15 @@ class ColorController extends Controller
     }
 
     /**
+     * @param string $ledId
+     * @return JsonResponse
+     */
+    public function get(string $ledId): JsonResponse
+    {
+        return new JsonResponse($this->colorService->findOne($ledId));
+    }
+
+    /**
      * @param Request $request
      * @param string $ledId
      * @return JsonResponse

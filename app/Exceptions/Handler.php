@@ -2,13 +2,15 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
-use Log;
+use Illuminate\Http\JsonResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -29,32 +31,31 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param \Throwable $exception
+     * @param Throwable $e
      * @return void
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function report(Throwable $exception)
+    public function report(Throwable $e)
     {
-        parent::report($exception);
+        parent::report($e);
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param Throwable $exception
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
-     * @throws Throwable
+     * @param $request
+     * @param Throwable $e
+     * @return JsonResponse
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e): JsonResponse
     {
-        $render = parent::render($request, $exception);
+        $render = parent::render($request, $e);
 
-        Log::error($exception->getMessage());
+        Log::error($e->getMessage());
 
-        return response()->json([
+        return new JsonResponse([
             'error' => [
                 'code' => $render->getStatusCode(),
-                'message' => $exception->getMessage(),
+                'message' => $e->getMessage(),
             ]
         ], $render->getStatusCode());
     }

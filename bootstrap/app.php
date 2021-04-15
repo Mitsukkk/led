@@ -63,8 +63,6 @@ $app->configure('dynamodb');
 
 $app->configure('app');
 
-$app->configure('swagger-lume');
-
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -98,7 +96,6 @@ $app->configure('swagger-lume');
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-// $app->register(\SwaggerLume\ServiceProvider::class);
 
 $app->register(BaoPham\DynamoDb\DynamoDbServiceProvider::class);
 

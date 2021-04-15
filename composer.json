@@ -7,14 +7,11 @@
     "require": {
         "php": "^7.2.5",
         "baopham/dynamodb": "^6.1",
-        "darkaonline/swagger-lume": "^8.0",
         "illuminate/console": "^7.0",
         "laravel/lumen-framework": "^7.0",
-        "ramsey/uuid": "^4.1",
-        "zircote/swagger-php": "3.*"
+        "ramsey/uuid": "^4.1"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.5",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
         "phpunit/phpunit": "^8.5"

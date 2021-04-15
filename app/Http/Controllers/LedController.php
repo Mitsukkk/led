@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Led;
 use App\Services\LedService;
-use Illuminate\Http\JsonResponse;
+use BaoPham\DynamoDb\DynamoDbCollection;
 use Illuminate\Http\Request;
-use Exception;
+use Illuminate\Http\JsonResponse;
 
 class LedController extends Controller
 {
@@ -24,32 +25,42 @@ class LedController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return JsonResponse
      */
-    public function getAll()
+    public function getAll(): JsonResponse
     {
-        return $this->ledService->ledAll();
+        return new JsonResponse($this->ledService->ledAll());
     }
 
     /**
      * @param Request $request
-     * @return \App\Models\Led
+     * @return JsonResponse
      */
-    public function create(Request $request): \App\Models\Led
+    public function create(Request $request): JsonResponse
     {
         $this->validate($request, [
             'name' => 'required'
         ]);
 
-        return $this->ledService->create($request->input('name'));
+        return new JsonResponse($this->ledService->create($request->input('name')));
     }
 
     /**
      * @param string $ledId
-     * @return JsonResponse|mixed
+     * @return JsonResponse
      */
-    public function get(string $ledId)
+    public function get(string $ledId): JsonResponse
     {
-        return $this->ledService->find($ledId);
+        return new JsonResponse($this->ledService->find($ledId));
+    }
+
+    /**
+     * @param Request $request
+     * @param string $ledId
+     * @return mixed
+     */
+    public function update(Request $request, string $ledId)
+    {
+        return $this->ledService->update($ledId, 'toto');
     }
 }

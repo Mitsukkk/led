@@ -22,5 +22,9 @@ docker exec -it led_php_1 bash
 composer update
 ```
 - Create the led table using the DynamodDB interface
+- You can run php tests inside php container with :
+```sh
+vendor/bin/phpunit tests/
+```
 
 Postman Collection : https://filebin.net/9jv7ylrz91hav7h3

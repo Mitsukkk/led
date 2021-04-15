@@ -17,7 +17,7 @@ class LedService
 
     public function get(): DynamoDbCollection
     {
-        return Led::all();
+        return Led::all(['name', 'id', 'lastUpdate']);
     }
 
     /**

@@ -23,9 +23,9 @@ class ColorController extends Controller
     public function update(Request $request, string $ledId): JsonResponse
     {
         $this->validate($request, [
-            'red' => 'required',
-            'green' => 'required',
-            'blue' => 'required'
+            'red' => 'required|numeric|max:255',
+            'green' => 'required|numeric|max:255',
+            'blue' => 'required|numeric|max:255',
         ]);
 
         return new JsonResponse($this->colorService->update($ledId, $request));

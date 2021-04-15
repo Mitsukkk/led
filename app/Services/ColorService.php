@@ -23,7 +23,23 @@ class ColorService
     public function update(string $ledId, Request $request): Led
     {
         $inputsJson = json_encode($request->all());
+        $led = Led::findOrFail($ledId);
 
-        return $this->ledRepository->updateColor($ledId, $inputsJson);
+        if ($led->color !== null) {
+            $colorArray = json_decode($led->color, true);
+            if (is_array($colorArray)) {
+                $colorArray['red'] = $request->input('red');
+                $colorArray['green'] = $request->input('green');
+                $colorArray['blue'] = $request->input('blue');
+
+                $led->color = json_encode($colorArray);
+            }
+        } else {
+            $led->color = $inputsJson;
+        }
+
+        $led->save();
+
+        return $led;
     }
 }

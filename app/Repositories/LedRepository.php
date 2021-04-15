@@ -45,18 +45,4 @@ class LedRepository
 
         return $led;
     }
-
-    /**
-     * @param string $ledId
-     * @param string $inputsJson
-     * @return Led
-     */
-    public function updateColor(string $ledId, string $inputsJson): Led
-    {
-        $led = Led::findOrFail($ledId);
-        $led->color = $inputsJson;
-        $led->save();
-
-        return $led;
-    }
 }

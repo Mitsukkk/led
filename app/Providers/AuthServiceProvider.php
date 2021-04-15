@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
             $apiToken = $request->bearerToken();
 
             if ($apiToken === null) {
-                $apiToken = $apiToken = $request->input('api_token');
+                $apiToken = $request->input('api_token');
             }
 
             if ($apiToken && $apiToken == env('API_TOKEN')) {

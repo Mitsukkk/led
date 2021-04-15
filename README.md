@@ -22,3 +22,5 @@ docker exec -it led_php_1 bash
 composer update
 ```
 - Create the led table using the DynamodDB interface
+
+Postman Collection : https://filebin.net/9jv7ylrz91hav7h3

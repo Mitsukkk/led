@@ -10,12 +10,4 @@ class Led extends DynamoDbModel
     public $timestamps = false;
     protected $table = 'led';
     protected $fillable = ['id', 'name', 'lastUpdate'];
-
-    /**
-     * @return BelongsToMany
-     */
-    public function color(): BelongsToMany
-    {
-        return $this->belongsTo(Color::class);
-    }
 }

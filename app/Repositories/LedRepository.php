@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Led;
 use BaoPham\DynamoDb\DynamoDbCollection;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class LedRepository
 {
@@ -24,7 +24,7 @@ class LedRepository
     public function createByName(string $name): Led
     {
         $led = new Led();
-        $led->id = Uuid::uuid4()->toString();
+        $led->id = Str::uuid()->toString();
         $led->name = $name;
         $led->lastUpdate = time();
         $led->save();

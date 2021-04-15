@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Led;
 use App\Services\LedService;
-use BaoPham\DynamoDb\DynamoDbCollection;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class LedController extends Controller
 {
@@ -29,7 +28,7 @@ class LedController extends Controller
      */
     public function getAll(): JsonResponse
     {
-        return new JsonResponse($this->ledService->ledAll());
+        return new JsonResponse($this->ledService->get());
     }
 
     /**
@@ -57,10 +56,14 @@ class LedController extends Controller
     /**
      * @param Request $request
      * @param string $ledId
-     * @return mixed
+     * @return JsonResponse
      */
-    public function update(Request $request, string $ledId)
+    public function update(Request $request, string $ledId): JsonResponse
     {
-        return $this->ledService->update($ledId, 'toto');
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        return new JsonResponse($this->ledService->update($request->input('name'), $ledId));
     }
 }

@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Led;
 use App\Repositories\LedRepository;
 use BaoPham\DynamoDb\DynamoDbCollection;
-use Ramsey\Uuid\Uuid;
 
 class LedService
 {
@@ -16,7 +15,7 @@ class LedService
         $this->ledRepository = $ledRepository;
     }
 
-    public function ledAll(): DynamoDbCollection
+    public function get(): DynamoDbCollection
     {
         return Led::all();
     }
@@ -27,13 +26,7 @@ class LedService
      */
     public function create(string $name): Led
     {
-        $led = new Led();
-        $led->id = Uuid::uuid4()->toString();
-        $led->name = $name;
-        $led->lastUpdate = time();
-        $led->save();
-
-        return $led;
+        return $this->ledRepository->createByName($name);
     }
 
     /**
@@ -45,13 +38,8 @@ class LedService
         return $this->ledRepository->findByUuid($ledId);
     }
 
-    /**
-     * @param string $ledId
-     * @param string $name
-     * @return mixed
-     */
-    public function update(string $ledId, string $name)
+    public function update(string $name, string $ledId)
     {
-        return $this->ledRepository->updateByUuid($ledId, $name);
+        return $this->ledRepository->updateByUuid($name, $ledId);
     }
 }

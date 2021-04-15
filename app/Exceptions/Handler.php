@@ -58,5 +58,8 @@ class Handler extends ExceptionHandler
                 'message' => $e->getMessage(),
             ]
         ], $render->getStatusCode());
+
+        // default
+        // return parent::render($request, $e);
     }
 }

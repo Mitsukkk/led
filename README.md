@@ -1,29 +1,24 @@
-# LED Project
+## API to manage LED
 
+## Routes
+
+- [GET]   	api/led  				=> List all LED
+- [POST]		api/led 				=> Add a new LED
+- [GET]   	api/led/{ledId}		=> Display information of a specific LED (except Color)
+- [DELETE]	api/led/{ledId}		=> Delete a specific LED
+- [PUT]  		api/led/{ledId} 		=> Update information of a LED (except Color)
+- [GET]		api/led/{ledId}/color  => Get color of a led
+- [PUT]		api/led/{ledId}/color 	=> Update color of a led
+
+## Installation
+- Copy the contents of the .env.example file to copy it into the .env file
+- Run docker containers :
+```sh
+docker-compose up -d
 ```
-Build bellow API thanks to :
-- Lumen as PHP Backend
-- DynamoDB local for persistance
-- At least on php unit test
-- Swagger to document
-*API Contract*
-[GET]   	/led  				=> List all LED
-[POST]		/led 				=> Add a new LED
-[GET]   	/led/{ledId}		=> Display information of a specific LED (except Color)
-[DELETE]	/led/{ledId}		=> Delete a specific LED
-[PUT]  		/led/{ledId} 		=> Update information of a LED (except Color)
-[GET]		/led/{ledId}/color  => Get color of a led
-[PUT]		/led/{ledId}/color 	=> Update color of a led
-LED Object
-{
-	"id"   : (string) "UUIDv4",
-	"name" : (string) "name of the led",
-	"lastUpdate" : (int) timestamp
-}
-COLOR Object
-{
-	"red" : int(0-255)
-	"green" : int(0-255)
-	"blue" : int(0-255)
-}
+- Inside PHP container :
+```sh
+docker exec -it led_php_1 bash
+composer update
 ```
+- Create the led table using the DynamodDB interface

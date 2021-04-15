@@ -19,13 +19,21 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/led', 'LedController@getAll');
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('led', 'LedController@getAll');
+    $router->post('led', ['middleware' => 'auth', 'uses' => 'LedController@create']);
+    $router->get('led/{ledId}', 'LedController@get');
+    $router->put('led/{ledId}', ['middleware' => 'auth', 'uses' => 'LedController@update']);
+    $router->post('led/{ledId}/color', ['middleware' => 'auth', 'uses' => 'ColorController@update']);
+});
 
-$router->post('/led', 'LedController@create');
-
-$router->get('/led/{ledId}', 'LedController@get');
-
-$router->put('/led/{ledId}', 'LedController@update');
+//$router->get('/led', 'LedController@getAll');
+//
+//$router->post('/led', 'LedController@create');
+//
+//$router->get('/led/{ledId}', 'LedController@get');
+//
+//$router->put('/led/{ledId}', 'LedController@update');
 
 $router->delete('/led/{ledId}', 'LedController@delete');
 

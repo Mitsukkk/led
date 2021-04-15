@@ -35,12 +35,26 @@ class LedRepository
     /**
      * @param string $name
      * @param string $ledId
-     * @return mixed
+     * @return Led
      */
-    public function updateByUuid(string $name, string $ledId)
+    public function updateByUuid(string $name, string $ledId): Led
     {
         $led = Led::findOrFail($ledId);
         $led->name = $name;
+        $led->save();
+
+        return $led;
+    }
+
+    /**
+     * @param string $ledId
+     * @param string $inputsJson
+     * @return Led
+     */
+    public function updateColor(string $ledId, string $inputsJson): Led
+    {
+        $led = Led::findOrFail($ledId);
+        $led->color = $inputsJson;
         $led->save();
 
         return $led;

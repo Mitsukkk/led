@@ -59,7 +59,7 @@ class Handler extends ExceptionHandler
             ]
         ], $render->getStatusCode());
 
-        // default
+        // default : delete return param
         // return parent::render($request, $e);
     }
 }

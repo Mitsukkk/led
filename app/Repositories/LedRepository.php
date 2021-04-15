@@ -39,6 +39,7 @@ class LedRepository
      */
     public function updateByUuid(string $name, string $ledId): Led
     {
+        // if not exist = 404
         $led = Led::findOrFail($ledId);
         $led->name = $name;
         $led->save();
@@ -52,6 +53,9 @@ class LedRepository
      */
     public function deleteById(string $ledId): bool
     {
-        return Led::find($ledId)->delete();
+        // if not exist = 404
+        $led = Led::findOrFail($ledId);
+
+        return $led->delete();
     }
 }
